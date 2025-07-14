@@ -1,63 +1,57 @@
-# AI-Based Behavioral Detection System for Device Security
+**AI-Based Behavioral Detection System for Device Security in Workplace**
+Features:
 
-This project implements a workplace device security system that uses real-time face detection and recognition to ensure only the authorized user can access the system. If the authorized user's face is not detected for a specified time, the device automatically locks itself.
-
----
-
-## 🎯 Objective
-
-To improve workplace device security by:
-- Detecting the authorized user's presence using a webcam
-- Locking the device if the user leaves the frame for more than 10 seconds
+* Face detection using webcam
+* Face recognition based on your dataset
+* 10-second timer if face is absent
+* Locks device using `.bat` or WinAPI
 
 ---
 
-## 🧠 Core Features
+## 🧱 Suggested File System Structure
 
-- **Real-time face detection** using OpenCV
-- **Face recognition** using a custom-trained model on the authorized user's images
-- **Timed auto-lock**: Locks device if face is not detected for 10 seconds
-- **Cross-platform flexibility** (Windows-based locking)
-
----
-
-## 🗂️ Project Structure
-
-Cyber_Security_Project/
-├── dataset/
-│ └── yourname/ # Folder of your face images
+```
+behavioral-security/
+├── dataset/                   # images for training
+│   └── yourname/              # Folder of face images (used for labeling)
+│       ├── img1.jpg
+│       ├── img2.jpg
+│       └── ...
 ├── models/
-│ └── face_recognition_model.pkl
+│   └── face_recognition_model.pkl  # Trained face embedding classifier
 ├── src/
-│ ├── train_model.py # Train face recognition model
-│ ├── detect_and_lock.py # Real-time detection + lock
-│ ├── lock_device.bat # Triggers Windows lock
-│ └── utils.py # Helper functions
-├── requirements.txt
-└── README.md
+│   ├── train_model.py         # Trains the face recognition model
+│   ├── detect_and_lock.py     # Main script: detect face + trigger lock
+│   ├── lock_device.bat        # Windows batch file to lock screen
+│   └── utils.py               # Helper functions (encoding, loading, etc.)
+├── requirements.txt           # List of required packages
+└── README.md                  # Project overview and usage
+```
 
 ---
 
-## ⚙️ Setup Instructions
+## 🔍 File Descriptions
 
-1. **Install dependencies** (preferably inside a virtual environment):
+* **`train_model.py`**: Encodes your images, extracts embeddings (e.g., using `face_recognition`), and trains an SVM or KNN.
+* **`detect_and_lock.py`**: Uses webcam to detect your face in real time. Starts 10-sec timer if you’re not seen → triggers lock.
+* **`lock_device.bat`**: Simple script:
 
-```bash
-pip install -r requirements.txt
+  ```bat
+  rundll32.exe user32.dll,LockWorkStation
+  ```
+* **`face_recognition_model.pkl`**: Trained model saved with `pickle`.
+* **`utils.py`**: Image-to-embedding functions, video capture logic, etc.
 
-Add your face images to:
-dataset/yourname/
+---
 
-Train the model:
-python src/train_model.py
+## ✅ Dependencies (`requirements.txt`)
 
-Run the detection system:
-python src/detect_and_lock.py
+```txt
+face_recognition
+opencv-python
+imutils
+numpy
+scikit-learn
+```
 
-🔐 Security Mechanism
-The system continuously monitors the webcam
-
-If no recognized face is detected for 10 seconds:
-
-The .bat file is triggered to lock the workstation
-
+---
