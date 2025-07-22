@@ -7,7 +7,7 @@ import subprocess
 from sklearn.neighbors import KNeighborsClassifier
 
 # Load trained model
-with open("models/face_model.pkl", "rb") as f:
+with open("models/face_model_v2.pkl", "rb") as f:
     model = pickle.load(f)
 
 # Init MediaPipe
