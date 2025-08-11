@@ -74,3 +74,6 @@ VITE_API_BASE=http://localhost:8000
 * `prasanna` recognized → logged.
 * Unknown/none > 10s → voice alert + `src/win.bat` (screen off).
 * All events stored to MongoDB and shown live on the dashboard.
+
+# Video Demonstration of the Application
+Youtube link: https://youtu.be/VIhPCndB1gQ
